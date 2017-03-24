@@ -1,0 +1,7 @@
+welcome: welcome to evan's alexa app. ready?
+
+asknumbers: what is {{numbers[0]}} plus {{numbers[1]}}?
+
+win: you win
+
+lose: you're bad at math
