@@ -3,11 +3,16 @@ Mpsyt Alexa
 
 This is a flask-ask server which allows you to control mpsyt from an Amazon Echo or Amazon Dot.  There are a few steps that you need to go through to get this running:
 
-1. obtain an Echo or Dot, or equivalent device (eg. [Alexa on BeagleBone](https://github.com/merdahl/AlexaBeagleBone2))
+1. obtain an Echo or Dot, or equivalent device (eg. `Alexa on BeagleBone`_)
 2. create an Amazon developer account and set up a new `music` skill
 3. generate SSL certificate and submit it on your Amazon developer account
 4. run this flask application on the same computer running mpsyt
 5. optionally configure and install provided systemd unit to run application as a service
+
+Some of this guide was borrowed from `here`_.
+
+.. _here: https://developer.amazon.com/blogs/post/Tx14R0IYYGH3SKT/Flask-Ask-A-New-Python-Framework-for-Rapid-Alexa-Skills-Kit-Development
+.. _Alexa on Beaglebone: https://github.com/merdahl/AlexaBeagleBone2  
 
 Setting up Amazon account
 -------------------------
@@ -17,8 +22,10 @@ Setting up Amazon account
 3. Under the **Interaction Model** tab, copy the following to the **Intent Schema** and **Sample Utterances** fields.
 
 
-   **Interaction Model**
+**Interaction Model**
+   
 .. code:: json
+
    {
        "intents": [
            {
@@ -56,6 +63,7 @@ Setting up Amazon account
 
 
 **Sample Utterances**
+
 .. code::
    StopIntent stop
    StopIntent stop playing
