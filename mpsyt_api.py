@@ -2,8 +2,7 @@ import pexpect
 import time
 
 mpsyt_screen = '/home/pi/bin/mpsyt'
-is_playing= u'\x1b[39m] SEEK [\x1b'
-prompt = u'\n>'
+
 p = pexpect.spawnu(mpsyt_screen, env={"TERM": "xterm"})
 
 def mpsyt_stop():
