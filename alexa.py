@@ -1,52 +1,61 @@
+#!/usr/bin/env python3
 from flask_ask import Ask, statement, question, session
 from flask import Flask
 from random import randint
+from subprocess import call
+import os
 
-# from OpenSSL import SSL
-# context = SSL.Context(SSL.SSLv23_METHOD)
-# context.use_privatekey_file('private-key.pem')
-# context.use_certificate_file('cert.pem')
-
-import random
+from mpsyt_api import *
 
 numbers = None
+
+DIR = os.path.dirname(os.path.realpath(__file__))
 
 app = Flask(__name__)
 # app.config['ASK_VERIFY_REQUESTS'] = False
 
 ask = Ask(app, "/")
 
-@ask.launch
-def launch():
-    return question("welcome to evans alexa app.  are you ready?")
+mpsyt_bin = '/home/pi/bin/mpsyt'
+is_playing_str = '\x1b[39m] SEEK [\x1b'
 
-@ask.intent("YesIntent")
-def test():
-    global numbers
-    numbers = (randint(0,9), randint(0,9))
-    return question("what is {} plus {}".format(numbers[0], numbers[1]))
+@ask.intent("StopIntent")
+def stop():
+    print('stopping')
+    mpsyt_stop()
+    return statement("stopping")
 
-@ask.intent("AnswerIntent", convert={'response':int})
-def answer(response):
-    print(response)
-    if response == numbers[0] + numbers[1]:
-        msg = "you win"
-    else:
-        msg = "you lose" 
+@ask.intent("NextIntent")
+def next():
+    print('playing next song')
+    mpsyt_next()
+    return statement("playing next song")
 
-    return statement(msg)
+@ask.intent("PauseIntent")
+def pause(r):
+    print('pausing')
+    mpsyt_pause()
+    return statement("pausing")
 
-@ask.intent("IRCIntent")
-def randomthing():
-    return statement("I sent the message")
+@ask.intent("ResumeIntent")
+def resume():
+    print('resuming')
+    mpsyt_resume()
+    return statement("resuming")
 
 @ask.intent("PlayIntent", convert={'request':str})
-def answer(request):
-    print(request)
-    return statement("you said {}".format(request))
+def play(request):
+    print('playing song')
+    mpsyt_play(request)
+    return statement("playing song")
 
+@ask.intent("PlayPlaylistIntent", convert={'request':str})
+def playlist(request):
+    print('playing playlist')
+    mpsyt_play(request, playlist=True)
+    return statement("playing playlist")
 
 if __name__ == '__main__':
-        app.run(debug=True, host='0.0.0.0', ssl_context=('cert.pem', 'private-key.pem'))
+        app.run(debug=True, host='0.0.0.0', ssl_context=(DIR+'/cert.pem', DIR+'/private-key.pem'))
 
 
