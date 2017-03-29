@@ -10,7 +10,6 @@ local f = assert(io.open("/dev/ttyUSB0", "w"))
 -- scrolls track title on top bar
 function display_title()
   local mediatitle = mp.get_property("media-title", " ")
-  local title = mp.get_property_osd("title", " ")
 
   f:write("\12")
   f:write("\27\81\68")
@@ -29,22 +28,20 @@ function display_progress()
   local time = mp.get_property_osd("playback-time", "00:00:00")
   local duration = mp.get_property_osd("duration", "00:00:00")
 
-  local num_hashes = (percent * 18)/100
+  local num_hashes = math.ceil((percent * 18)/100)
   local bar = string.format("[%s%s]", string.rep("#", num_hashes), string.rep(" ", 18 - num_hashes))
-  local playtime = string.format("%s / %s", time, duration)
-
-  f:write(percent)
+  local playtime = string.format("%s / %s ", time, duration)
 
   -- display time
-  f:write("\12")
-  f:write("\27\81\65")
+  f:write("\11")
+  -- f:write("\27\81\65")
   f:write(playtime)
-  f:write("\13")
+  -- f:write("\13")
 
   -- display progress bar
-  f:write("\27\81\66")
+  f:write("\11")
+  f:write("\10")
   f:write(bar)
-  f:write("\13")
 
   f:flush()
 
