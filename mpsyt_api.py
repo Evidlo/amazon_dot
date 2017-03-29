@@ -12,13 +12,18 @@ p = pexpect.spawn(mpsyt_screen, env={"TERM": "xterm", "PATH": os.environ['PATH']
 
 def screen_redraw():
     # send C-a C-l to make screen redraw
-    p.send('\033')
-    p.send('\044')
+    p.send('\001')
+    time.sleep(1)
+    p.send('\012')
+
+    p.send('\025')
+    p.send('\n')
 
 def mpsyt_stop():
     # send newline to make the current song stop if its playing
     p.send('q')
 
+    time.sleep(.5)
     # clear anything already in the prompt
     p.send('\025')
 
@@ -33,7 +38,8 @@ def wait_prompt():
 
     tries = 0
     while EOF and tries < 5:
-        log.debug('loop:', EOF)
+        log.info('loop:' + str(EOF))
+        log.info('tries:' + str(tries))
         screen_redraw()
         # wait until the prompt comes back
         EOF = p.expect_exact([prompt, pexpect.EOF, pexpect.TIMEOUT], timeout=10)
@@ -41,6 +47,7 @@ def wait_prompt():
             p = pexpect.spawnu(mpsyt_screen, env={"TERM": "xterm", "PATH": os.environ['PATH']})
             time.sleep(1)
         tries += 1
+        
 
 
 def mpsyt_play(request, playlist_number=1, playlist=False):
@@ -54,13 +61,16 @@ def mpsyt_play(request, playlist_number=1, playlist=False):
 
     if playlist:
         p.sendline('//' + request)
-        wait_prompt()
+        time.sleep(.5)
+        # wait_prompt()
         p.sendline(str(playlist_number))
-        wait_prompt()
+        #wait_prompt()
+        time.sleep(.5)
         p.sendline('*')
     else:
         p.sendline('/' + request)
         wait_prompt()
+        time.sleep(.5)
         p.sendline('1')
 
 def mpsyt_next():
