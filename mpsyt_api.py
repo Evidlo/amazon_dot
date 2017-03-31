@@ -3,14 +3,16 @@ import os
 import time
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(message)s')
 log = logging.getLogger(__name__)
 
 mpsyt_screen = '/home/pi/bin/mpsyt'
 prompt = '\n> '
 p = pexpect.spawn(mpsyt_screen, env={"TERM": "xterm", "PATH": os.environ['PATH']})
 
+
 def screen_redraw():
+    log.debug('redrawing screen')
     # send C-a C-l to make screen redraw
     p.send('\001')
     time.sleep(1)
@@ -18,6 +20,7 @@ def screen_redraw():
 
     p.send('\025')
     p.send('\n')
+
 
 def mpsyt_stop():
     # send newline to make the current song stop if its playing
@@ -32,14 +35,22 @@ def mpsyt_stop():
     # this is necessary for some reason
     p.send('\n')
 
+
 def wait_prompt():
     global p
+    log.debug('entered wait_prompt')
+    screen_redraw()
+
+    # clears the buffer (i think)
+    p.expect('.*')
+
+
     EOF = 1
 
     tries = 0
     while EOF and tries < 5:
-        log.info('loop:' + str(EOF))
-        log.info('tries:' + str(tries))
+        log.debug('loop:' + str(EOF))
+        log.debug('tries:' + str(tries))
         screen_redraw()
         # wait until the prompt comes back
         EOF = p.expect_exact([prompt, pexpect.EOF, pexpect.TIMEOUT], timeout=10)
@@ -47,7 +58,6 @@ def wait_prompt():
             p = pexpect.spawnu(mpsyt_screen, env={"TERM": "xterm", "PATH": os.environ['PATH']})
             time.sleep(1)
         tries += 1
-        
 
 
 def mpsyt_play(request, playlist_number=1, playlist=False):
@@ -73,13 +83,16 @@ def mpsyt_play(request, playlist_number=1, playlist=False):
         time.sleep(.5)
         p.sendline('1')
 
+
 def mpsyt_next():
     # go to next song
     p.send('>')
 
+
 def mpsyt_pause():
     # pause current playback
     p.send('p')
+
 
 def mpsyt_resume():
     # resume current playback

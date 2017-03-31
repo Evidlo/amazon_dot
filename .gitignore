@@ -1,4 +1,5 @@
 cert.pem
 private-key.pem
-ssl.cnf
+**/ssl.cnf
 **/__pycache__
+**/*pyc
