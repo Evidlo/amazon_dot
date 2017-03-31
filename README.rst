@@ -22,7 +22,7 @@ Setting up Amazon account
 3. Under the **Interaction Model** tab, copy the following to the **Intent Schema** and **Sample Utterances** fields.
 
 
-**Interaction Model**
+**Intent Schema**
    
 .. code:: json
 
@@ -64,7 +64,8 @@ Setting up Amazon account
 
 **Sample Utterances**
 
-.. code::
+.. code::  text
+
    StopIntent stop
    StopIntent stop playing
    StopIntent stop song
