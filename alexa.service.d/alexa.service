@@ -1,0 +1,10 @@
+[Unit]
+Description=flask-ask service for amazon dot
+
+[Service]
+User=pi
+Restart=always
+ExecStart=/home/pi/resources/amazon_dot/alexa.py
+
+[Install]
+WantedBy=multi-user.target

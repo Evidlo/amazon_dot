@@ -2,12 +2,14 @@ import pexpect
 import os
 import time
 import logging
+from alexa import DIR
 
 logging.basicConfig(level=logging.DEBUG, format='%(message)s')
 log = logging.getLogger(__name__)
 
-mpsyt_screen = '/home/pi/bin/mpsyt'
+mpsyt_screen = 'screen -x -R mpsyt mpsyt'
 prompt = '\n> '
+
 p = pexpect.spawn(mpsyt_screen, env={"TERM": "xterm", "PATH": os.environ['PATH']})
 
 
