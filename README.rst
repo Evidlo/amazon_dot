@@ -66,43 +66,34 @@ Setting up Amazon account
 
 .. code::  text
 
-   StopIntent stop
-   StopIntent stop playing
-   StopIntent stop song
-   StopIntent stop music
-   StopIntent stop audio
-
-   PlayIntent play {foo|request}
-   PlayIntent play {billy joel|request}
-   PlayIntent play {one two three|request}
-   PlayIntent play {hamburger three four five|request}
-   PlayIntent play {jolly bobby ricky phone nugget|request}
-
-   PlayPlaylistIntent play playlist {foo|request}
-   PlayPlaylistIntent play playlist {billy joel|request}
-   PlayPlaylistIntent play playlist {one two three|request}
-   PlayPlaylistIntent play playlist {hamburger three four five|request}
-   PlayPlaylistIntent play playlist {jolly bobby ricky phone nugget|request}
-
-   PauseIntent pause
-   PauseIntent pause playing
-   PauseIntent pause song
-   PauseIntent pause music
-   PauseIntent pause audio
-
-   ResumeIntent resume
-   ResumeIntent resume playing
-   ResumeIntent resume song
-   ResumeIntent resume music
-   ResumeIntent resume audio
-
-   NextIntent next
-   NextIntent next song
-   NextIntent next song in playlist
-   NextIntent skip
-   NextIntent skip song
-   NextIntent skip to next song
-
+StopIntent stop
+StopIntent stop song
+ResumeIntent resume
+ResumeIntent resume song
+PauseIntent pause
+PauseIntent pause song
+NextIntent play next
+NextIntent play next song
+PlayIntent play {xxx|request}
+PlayIntent play {xxx xxx|request}
+PlayIntent play {xxx xxx xxx|request}
+PlayIntent play {xxx xxx xxx xxx|request}
+PlayIntent play {xxx xxx xxx xxx xxx|request}
+PlayIntent play {xxx xxx xxx xxx xxx xxx|request}
+PlayIntent play {xxx xxx xxx xxx xxx xxx xxx|request}
+PlayIntent play {xxx xxx xxx xxx xxx xxx xxx xxx|request}
+PlayIntent play {xxx xxx xxx xxx xxx xxx xxx xxx xxx|request}
+PlayIntent play {xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx xxx xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx xxx xxx xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx xxx xxx xxx xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx xxx xxx xxx xxx xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx xxx xxx xxx xxx xxx xxx xxx|request}
+PlayPlaylistIntent play playlist {xxx xxx xxx xxx xxx xxx xxx xxx xxx xx|request}
 
 4. Under the **Configuration** tab, select the ``HTTPS`` endpoint type and enter a url that resolves to the computer that will be running flask, like ``https://example.com``.
 
